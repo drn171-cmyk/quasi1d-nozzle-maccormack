@@ -106,58 +106,25 @@ $$
 L=3.
 $$
 
-### Predictor step — Forward difference
+### Predictor Step — Forward Difference
 
 For each interior node,
 
-$$
-\mathbf{U}_i^*
-=
-\mathbf{U}_i^n
--\frac{\Delta t}{\Delta x}
-\left(\mathbf{F}_{i+1}^n-\mathbf{F}_i^n\right)
-+\Delta t\,\mathbf{S}_i^n.
-$$
+$$\mathbf{U}_i^*=\mathbf{U}_i^n-\frac{\Delta t}{\Delta x}\left(\mathbf{F}_{i+1}^n-\mathbf{F}_i^n\right)+\Delta t\,\mathbf{S}_i^n$$
 
-The forward spatial difference is therefore
+The forward spatial derivative is approximated by
 
-$$
-\left(\frac{\partial \mathbf{F}}{\partial x}\right)_i
-\approx
-\frac{\mathbf{F}_{i+1}-\mathbf{F}_i}{\Delta x}.
-$$
+$$\left(\frac{\partial \mathbf{F}}{\partial x}\right)_i\approx\frac{\mathbf{F}_{i+1}-\mathbf{F}_i}{\Delta x}$$
 
----
+### 🔄 Corrector Step — Backward Difference
 
-## 🔄 Corrector Step — Backward Difference
+Fluxes are recalculated using the predicted state.
 
-Fluxes are recalculated using the predicted state and the corrector uses a backward difference:
+$$\mathbf{U}_i^{n+1}=\frac{1}{2}\left[\mathbf{U}_i^n+\mathbf{U}_i^*-\frac{\Delta t}{\Delta x}\left(\mathbf{F}_i^*-\mathbf{F}_{i-1}^*\right)+\Delta t\,\mathbf{S}_i^*\right]$$
 
-$$
-\mathbf{U}_i^{n+1}
-=
-\frac{1}{2}
-\left[
-\mathbf{U}_i^n+\mathbf{U}_i^*
--\frac{\Delta t}{\Delta x}
-\left(\mathbf{F}_i^*-\mathbf{F}_{i-1}^*\right)
-+\Delta t\,\mathbf{S}_i^*
-\right].
-$$
+The backward spatial derivative is
 
-Therefore,
-
-$$
-\left(\frac{\partial \mathbf{F}}{\partial x}\right)_i
-\approx
-\frac{\mathbf{F}_i-\mathbf{F}_{i-1}}{\Delta x}
-$$
-
-is used during the corrector stage.
-
-This **forward/backward pairing** is the defining spatial discretization of the explicit MacCormack scheme implemented here.
-
----
+$$\left(\frac{\partial \mathbf{F}}{\partial x}\right)_i\approx\frac{\mathbf{F}_i^*-\mathbf{F}_{i-1}^*}{\Delta x}$$
 
 ## 📐 Discretization of the Area Source Term
 

@@ -316,7 +316,8 @@ $$
 
 The final solution shows the expected compressible-flow behavior: acceleration through the converging section, supersonic flow in the divergent section, and a strong normal-shock transition toward the subsonic exit.
 
-![MacCormack nozzle solution](nozzle_output.png)
+<img width="1200" height="800" alt="Figure_1" src="https://github.com/user-attachments/assets/b6d52e43-4e54-462a-9c8f-26e55788f3d0" />
+
 
 > **Representative shock location:** approximately `x ≈ 2.08` in the supplied numerical run. The plotted shock marker is based on the strongest local Mach-number gradient in the generated output.
 

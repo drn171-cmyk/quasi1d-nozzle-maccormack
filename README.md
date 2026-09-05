@@ -138,6 +138,7 @@ Therefore,
  
 is used during the corrector stage.
  
+
 This **forward/backward pairing** is the defining spatial discretization of the explicit MacCormack scheme implemented here.
 ---
 

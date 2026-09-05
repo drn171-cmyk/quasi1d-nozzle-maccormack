@@ -93,38 +93,53 @@ $$
 ---
 
 ## 🔢 Spatial Discretization
-
+ 
 The domain is divided into `N = 1000` grid points:
-
-$$
-\Delta x=\frac{L}{N-1}
-$$
-
+ 
+```math
+\Delta x = \frac{L}{N-1}
+```
+ 
 with
-
-$$
-L=3.
-$$
-
-### Predictor Step — Forward Difference
-
+ 
+```math
+L = 3.
+```
+ 
+### Predictor step — Forward difference
+ 
 For each interior node,
-
-$$\mathbf{U}_i^*=\mathbf{U}_i^n-\frac{\Delta t}{\Delta x}\left(\mathbf{F}_{i+1}^n-\mathbf{F}_i^n\right)+\Delta t\,\mathbf{S}_i^n$$
-
-The forward spatial derivative is approximated by
-
-$$\left(\frac{\partial \mathbf{F}}{\partial x}\right)_i\approx\frac{\mathbf{F}_{i+1}-\mathbf{F}_i}{\Delta x}$$
-
-### 🔄 Corrector Step — Backward Difference
-
-Fluxes are recalculated using the predicted state.
-
-$$\mathbf{U}_i^{n+1}=\frac{1}{2}\left[\mathbf{U}_i^n+\mathbf{U}_i^*-\frac{\Delta t}{\Delta x}\left(\mathbf{F}_i^*-\mathbf{F}_{i-1}^*\right)+\Delta t\,\mathbf{S}_i^*\right]$$
-
-The backward spatial derivative is
-
-$$\left(\frac{\partial \mathbf{F}}{\partial x}\right)_i\approx\frac{\mathbf{F}_i^*-\mathbf{F}_{i-1}^*}{\Delta x}$$
+ 
+```math
+\mathbf{U}_i^* = \mathbf{U}_i^n - \frac{\Delta t}{\Delta x}\left(\mathbf{F}_{i+1}^n - \mathbf{F}_i^n\right) + \Delta t\,\mathbf{S}_i^n.
+```
+ 
+The forward spatial difference is therefore
+ 
+```math
+\left(\frac{\partial \mathbf{F}}{\partial x}\right)_i \approx \frac{\mathbf{F}_{i+1} - \mathbf{F}_i}{\Delta x}.
+```
+ 
+---
+ 
+## 🔄 Corrector Step — Backward Difference
+ 
+Fluxes are recalculated using the predicted state and the corrector uses a backward difference:
+ 
+```math
+\mathbf{U}_i^{n+1} = \frac{1}{2}\left[\mathbf{U}_i^n + \mathbf{U}_i^* - \frac{\Delta t}{\Delta x}\left(\mathbf{F}_i^* - \mathbf{F}_{i-1}^*\right) + \Delta t\,\mathbf{S}_i^*\right].
+```
+ 
+Therefore,
+ 
+```math
+\left(\frac{\partial \mathbf{F}}{\partial x}\right)_i \approx \frac{\mathbf{F}_i - \mathbf{F}_{i-1}}{\Delta x}
+```
+ 
+is used during the corrector stage.
+ 
+This **forward/backward pairing** is the defining spatial discretization of the explicit MacCormack scheme implemented here.
+---
 
 ## 📐 Discretization of the Area Source Term
 
